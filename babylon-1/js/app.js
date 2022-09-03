@@ -50,7 +50,7 @@ const createScene = () => {
   );
 };
 
-//change scale position and rotation
+//change scale position and rotation all at the same time.
 const changeScalePositionRotation = () => {
   const ground = viewer.scene.getMeshByName("ground");
   ground.position.x = 2 * Math.sin(theta);
