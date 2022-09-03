@@ -3,7 +3,8 @@ const viewer = {
   engine: null,
   scene: null,
 };
-
+let ADD = 0.01,
+  theta = 0;
 //scene set up
 const createScene = () => {
   const bblon = BABYLON;
@@ -49,6 +50,20 @@ const createScene = () => {
   );
 };
 
+//change scale position and rotation
+const changeScalePositionRotation = () => {
+  const ground = viewer.scene.getMeshByName("ground");
+  ground.position.x = 2 * Math.sin(theta);
+  ground.position.y = 2 * Math.cos(theta);
+
+  ground.scaling.x = 2 * Math.sin(theta);
+  ground.scaling.y = 2 * Math.cos(theta);
+
+  ground.rotation.x = 2 * Math.sin(theta);
+  ground.rotation.y = 2 * Math.cos(theta);
+  theta += ADD;
+};
+
 //handling events
 const addEventListeners = () => {
   //resize event
@@ -66,4 +81,5 @@ addEventListeners();
 //game engine render loop
 viewer.engine.runRenderLoop(() => {
   viewer.scene.render();
+  changeScalePositionRotation();
 });
