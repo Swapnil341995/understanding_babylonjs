@@ -28,8 +28,9 @@ const createScene = () => {
         );
     }
     //ground plane
+    let ground;
     {
-        const ground = new BABYLON.MeshBuilder.CreateGround(
+        ground = new BABYLON.MeshBuilder.CreateGround(
             "ground", {
                 height: 2,
                 width: 2,
@@ -38,16 +39,36 @@ const createScene = () => {
         )
     }
     //create box as hut
+    let box;
     {
-        const box = new BABYLON.MeshBuilder.CreateBox("box", {});
+        box = new BABYLON.MeshBuilder.CreateBox("box", {});
         box.position.y = 0.5;
     }
     //create cylinder as roof
+    let roof;
     {
-        const roof = new BABYLON.MeshBuilder.CreateCylinder("roof", {diameter: 1.3, height: 1.2, tessellation: 3});
+        roof = new BABYLON.MeshBuilder.CreateCylinder("roof", {diameter: 1.3, height: 1.2, tessellation: 3});
         roof.scaling.x = 0.75;
         roof.rotation.z = Math.PI / 2;
         roof.position.y = 1.22;
+    }
+    //adding texture to roof
+    {
+        const roofMat = new BABYLON.StandardMaterial("roofMat");
+        roofMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/roof.jpg");
+        roof.material = roofMat;
+    }
+    //adding texture to hut
+    {
+        const hutMat = new BABYLON.StandardMaterial("hutMat");
+        hutMat.diffuseTexture = new BABYLON.Texture("https://www.babylonjs-playground.com/textures/floor.png")
+        box.material = hutMat;
+    }
+    //adding color to the ground plane
+    {
+        const groundMat = new BABYLON.StandardMaterial("groundMat");
+        groundMat.diffuseColor = new BABYLON.Color3(0, 1, 0);
+        ground.material = groundMat;
     }
 }
 const addEventListener = () => {
